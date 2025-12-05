@@ -1,4 +1,5 @@
 # Databricks notebook source
+--Load CSV into a PySpark DataFrame
 from pyspark.sql import functions as F
 
 catalog = "prime"
@@ -23,7 +24,7 @@ df_raw.printSchema()
 df_raw.show(5)
 
 # COMMAND ----------
-
+--Fix Data Types 
 df = (
  df_raw
   .withColumn("staff_id", F.col("staff_id").cast("string")) \
@@ -37,7 +38,7 @@ df = (
 df.printSchema()
 
 # COMMAND ----------
-
+--Create managed table
 df.write.mode("overwrite").saveAsTable("prime.hospital_management.hm_staff")
 
 
